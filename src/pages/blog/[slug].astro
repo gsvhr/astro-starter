@@ -1,11 +1,11 @@
 ---
 import Layout from '../../components/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
 	const blogPosts = await getCollection('blog');
 	return blogPosts.map((post: any) => ({
-		params: { slug: post.slug }
+		params: { slug: post.data.slug }
 	}));
 }
 
@@ -15,13 +15,13 @@ const { slug } = Astro.params;
 const allBlogPosts = await getCollection('blog');
 
 // Найти статью по slug
-const post = allBlogPosts.find((p: any) => p.slug === slug);
+const post = allBlogPosts.find((p: any) => p.data.slug === slug);
 
 if (!post) {
 	throw new Error(`Статья с slug '${slug}' не найдена`);
 }
 
-const { Content } = await post.render();
+const { Content } = await render(post);
 ---
 
 <Layout>
