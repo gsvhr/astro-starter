@@ -1,11 +1,43 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from '../components/Layout.astro';
+import Banner from '../components/Banner.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import services from '../data/services';
 ---
 
 <Layout>
-	<Welcome />
+	<Banner />
+	
+	<section class="py-16 bg-gray-50">
+		<div class="container mx-auto px-4">
+			<h2 class="text-3xl font-bold text-center mb-12">Наши услуги</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				{
+					services.map((service: any) => (
+						<ServiceCard service={service} />
+					))
+				}
+			</div>
+		</div>
+	</section>
+	
+	<section class="py-16">
+		<div class="container mx-auto px-4 text-center">
+			<h2 class="text-3xl font-bold mb-8">Почему выбирают нас?</h2>
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				<div class="bg-white p-6 rounded-lg shadow-md">
+					<h3 class="text-xl font-semibold mb-4">Опыт и квалификация</h3>
+					<p class="text-gray-600">Наши эксперты имеют многолетний опыт и высокую квалификацию в своей области</p>
+				</div>
+				<div class="bg-white p-6 rounded-lg shadow-md">
+					<h3 class="text-xl font-semibold mb-4">Соблюдение сроков</h3>
+					<p class="text-gray-600">Мы гарантируем выполнение экспертиз в оговоренные сроки</p>
+				</div>
+				<div class="bg-white p-6 rounded-lg shadow-md">
+					<h3 class="text-xl font-semibold mb-4">Доступные цены</h3>
+					<p class="text-gray-600">Конкурентные расценки без скрытых платежей</p>
+				</div>
+			</div>
+		</div>
+	</section>
 </Layout>

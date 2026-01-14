@@ -1,0 +1,62 @@
+---
+import Layout from '../components/Layout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+
+// Имитация загрузки статей из файловой системы
+const articles = [
+	{
+		slug: 'otsenochnaya',
+		title: 'Стоимостная (оценочная) экспертиза',
+		description: 'Подробное описание стоимости и процесса проведения стоимостной экспертизы',
+		date: '2026-01-10',
+		category: 'services'
+	},
+	{
+		slug: 'stroitel-tekhnicheskaya',
+		title: 'Строительно-техническая экспертиза',
+		description: 'Особенности проведения строительно-технической экспертизы и ее применение',
+		date: '2026-01-09',
+		category: 'services'
+	},
+	// Добавим по одной статье для каждой из 14 услуг
+	...Array(12).fill(0).map((_, i) => ({
+		slug: `usluga-${i + 3}`,
+		title: `Статья о услуге ${i + 3}`,
+		description: `Описание услуги ${i + 3} и особенности ее проведения`,
+		date: `2026-01-0${8 - i}`,
+		category: 'services'
+	}))
+];
+---
+
+<Layout>
+	<main class="py-16">
+		<div class="container mx-auto px-4">
+			<h1 class="text-3xl font-bold mb-8">Блог</h1>
+			
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				{
+					articles.map((article) => (
+						<ArticleCard article={article} />
+					))
+				}
+			</div>
+		</div>
+	</main>
+	
+	<!-- SEO мета-теги -->
+	<script type="application/ld+json">{
+		JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'Blog',
+			'name': 'Блог - СУДЭКСПЕРТ',
+			'url': 'https://sudexpert-tlt.ru/blog',
+			'description': 'Статьи и публикации об экспертных и оценочных услугах от компании СУДЭКСПЕРТ',
+			'publisher': {
+				'@type': 'Organization',
+				'name': 'СУДЭКСПЕРТ',
+				'logo': 'https://sudexpert-tlt.ru/logo.svg'
+			}
+		})
+	}</script>
+</Layout>

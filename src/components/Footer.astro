@@ -1,0 +1,31 @@
+---
+const { showContactInfo = true } = Astro.props;
+---
+
+<footer class="bg-gray-800 text-white py-12">
+	<div class="container mx-auto px-4">
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+			<div>
+				<h2 class="text-2xl font-bold mb-4">СУДЭКСПЕРТ</h2>
+				<p class="mb-4">Профессиональные оценочные и экспертные услуги в Тольятти</p>
+				<div class="flex space-x-4">
+					<a href="https://vk.com" class="text-gray-300 hover:text-white transition-colors">ВКонтакте</a>
+					<a href="https://t.me" class="text-gray-300 hover:text-white transition-colors">Telegram</a>
+				</div>
+			</div>
+			<div>
+				<h3 class="text-lg font-semibold mb-4">Контакты</h3>
+				<address class="not-italic">
+					<p class="mb-2">+7 (8482) 63-12-88</p>
+					<p class="mb-2">sud163@ya.ru</p>
+					<p class="mb-2">445047, Тольятти, Тополиная 1-Б, оф.214</p>
+					<p class="mb-2">Прием заявок: круглосуточно 24/7</p>
+					<p>Прием посетителей: Пн-Пт 9:00 - 18:00</p>
+				</address>
+			</div>
+		</div>
+		<div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
+			<p>&copy; 2026 СУДЭКСПЕРТ. Все права защищены.</p>
+		</div>
+	</div>
+</footer>

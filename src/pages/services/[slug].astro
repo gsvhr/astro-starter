@@ -1,0 +1,70 @@
+---
+import Layout from '../../components/Layout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import services from '../../data/services';
+
+export function getStaticPaths() {
+	return services.map((service) => ({
+		params: { slug: service.slug }
+	}));
+}
+
+const { slug } = Astro.params;
+
+// Найти услугу по slug
+const service = services.find((s: any) => s.slug === slug);
+
+if (!service) {
+	throw new Error(`Услуга с slug '${slug}' не найдена`);
+}
+
+// Загрузка статей из файловой системы
+// Временно используем статические данные, так как не удалось установить @astrojs/content
+const articles = [
+	{
+		slug: `article-1-${slug}`,
+		title: `Статья 1 по теме ${service.title}`,
+		description: `Подробное описание и особенности экспертизы ${service.title.toLowerCase()}`,
+		date: '2026-01-10',
+		category: 'services'
+	},
+	{
+		slug: `article-2-${slug}`,
+		title: `Практическое применение ${service.title}`,
+		description: `Как применяется ${service.title.toLowerCase()} в судебной практике`,
+		date: '2026-01-08',
+		category: 'services'
+	}
+].filter(article => article.title.toLowerCase().includes(service.title.toLowerCase()));
+---
+
+<Layout>
+	<main class="py-16">
+		<div class="container mx-auto px-4">
+			<div class="mb-8">
+				<h1 class="text-3xl font-bold mb-4">{service.title}</h1>
+				<p class="text-gray-600 text-lg">{service.description}</p>
+			</div>
+			
+			{articles.length > 0 && (
+				<div>
+					<h2 class="text-2xl font-semibold mb-6">Статьи по теме</h2>
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+						{
+							articles.map((article) => (
+								<ArticleCard article={article} />
+							))
+						}
+					</div>
+				</div>
+			)}
+			
+			<div class="mt-12">
+				<a href="/contacts" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors">
+					Заказать {service.title.toLowerCase()}
+				</a>
+			</div>
+		</div>
+	</main>
+	
+</Layout>
